@@ -4,10 +4,10 @@ import * as signalR from "@aspnet/signalr";
 @Injectable({
     providedIn: 'root',
 })
-export class NotificationService {
+export class MessageService {
   private connection: signalR.HubConnection;
 
-  connect(accessToken) {
+  connect() {
     if (!this.connection) {
       this.connection = new signalR.HubConnectionBuilder()
         .withUrl("http://localhost:5000/chathub", { accessTokenFactory: () => "" })
@@ -19,6 +19,10 @@ export class NotificationService {
       
       this.connection.start().catch(err => console.error(err));
     }
+  }
+  
+  send(message) {
+    this.connection.invoke("SendMessage", message).catch(err => console.error(err));
   }
 
   disconnect() {
