@@ -13,14 +13,25 @@ export class AppComponent implements OnInit {
   messageForm = this.fb.group({
     message: ['', Validators.required]
   });
+  loginForm = this.fb.group({
+    user: ['', Validators.required],
+    password: ['', Validators.required]
+  });
+  display: boolean;
   
   constructor(private fb: FormBuilder, private notification: MessageService) { }
 
   onSubmit() {
     this.notification.send(this.messageForm.getRawValue().message);
   }
+
+  logIn() {
+    this.display = false;
+    console.log(this.loginForm.getRawValue());
+  }
   
   ngOnInit() {
     this.notification.connect();
+    this.display = true;
   }
 }
