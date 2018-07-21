@@ -22,7 +22,6 @@
     "@angular/router": "^6.0.3",
     "@aspnet/signalr": "^1.0.2",
     "core-js": "^2.5.4",
-    "oidc-client": "^1.5.2",
     "primeicons": "^1.0.0-beta.10",
     "primeng": "^6.0.1",
     "rxjs": "^6.0.0",

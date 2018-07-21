@@ -7,10 +7,10 @@ import * as signalR from "@aspnet/signalr";
 export class MessageService {
   private connection: signalR.HubConnection;
 
-  connect() {
+  connect(token) {
     if (!this.connection) {
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl("http://localhost:5000/chathub", { accessTokenFactory: () => "" })
+        .withUrl("http://localhost:5000/chathub", { accessTokenFactory: () => token })
         .build();
         
       this.connection.on("receive", (user, msg) => {

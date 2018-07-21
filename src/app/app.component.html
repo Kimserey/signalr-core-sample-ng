@@ -4,10 +4,12 @@
   <span>bob/password</span>
 
   <form [formGroup]="loginForm" (ngSubmit)="logIn()">
-    <label>User:</label>
-    <input pInputText type="text" formControlName="user" />
-    <label>Password:</label>
-    <input pInputText type="password" formControlName="password" />
+    <div>
+      <input pInputText type="text" placeholder="username" formControlName="username" />
+    </div>
+    <div>
+      <input pInputText type="password" placeholder="password" formControlName="password" />
+    </div>
     <div>
       <p-button type="submit" label="Log in" [disabled]="!loginForm.valid"></p-button>
     </div>

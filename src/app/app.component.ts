@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { AuthService } from './auth.service';
 import { MessageService } from './message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,27 +13,37 @@ export class AppComponent implements OnInit {
   title = 'app';
 
   messageForm = this.fb.group({
-    message: ['', Validators.required]
+    message: ['Hello world!', Validators.required]
   });
   loginForm = this.fb.group({
-    user: ['', Validators.required],
-    password: ['', Validators.required]
+    username: ['alice', Validators.required],
+    password: ['password', Validators.required]
   });
   display: boolean;
+  loginSubscription: Subscription;
   
-  constructor(private fb: FormBuilder, private notification: MessageService) { }
+  constructor(private fb: FormBuilder, private notification: MessageService, private auth: AuthService) { }
 
   onSubmit() {
     this.notification.send(this.messageForm.getRawValue().message);
   }
 
   logIn() {
-    this.display = false;
-    console.log(this.loginForm.getRawValue());
+    const value = this.loginForm.getRawValue();
+
+    if (!!this.loginSubscription)
+    {
+      this.loginSubscription.unsubscribe();
+    }
+
+    this.loginSubscription = this.auth.login(value.username, value.password)
+      .subscribe(token => {
+        this.notification.connect(token);
+        this.display = false;
+      });
   }
   
   ngOnInit() {
-    this.notification.connect();
     this.display = true;
   }
 }
