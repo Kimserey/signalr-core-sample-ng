@@ -10,7 +10,7 @@ export class NotificationService {
   connect(accessToken) {
     if (!this.connection) {
       this.connection = new signalR.HubConnectionBuilder()
-        .withUrl("/hubs/messages", { accessTokenFactory: () => accessToken })
+        .withUrl("http://localhost:5000/chathub", { accessTokenFactory: () => "" })
         .build();
         
       this.connection.on("receive", (user, msg) => {
