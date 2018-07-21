@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  messageForm = this.fb.group({
+    message: ['', Validators.required]
+  });
+  
+  constructor(private fb: FormBuilder) { }
+
+  onSubmit() {
+    console.log(this.messageForm.getRawValue().message);
+  }
 }

@@ -1,1 +1,5 @@
-<p-button label="Send" ></p-button>
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+  <h3>Message:</h3>
+  <input pInputText type="text" formControlName="message" />
+  <p-button type="submit" label="Send" [disabled]="!messageForm.valid"></p-button>
+</form>
