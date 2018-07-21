@@ -21,3 +21,11 @@
   <input pInputText type="text" formControlName="message" />
   <p-button type="submit" label="Send" [disabled]="!messageForm.valid"></p-button>
 </form>
+
+<div>
+    <ul>
+      <li *ngFor="let msg of messages">
+        <b>{{ msg.user }}:</b> {{ msg.content }}
+      </li>
+    </ul>
+</div>

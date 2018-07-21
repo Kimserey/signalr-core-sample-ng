@@ -1,3 +1,5 @@
+import { Message } from './message.model';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from './auth.service';
@@ -12,6 +14,8 @@ import { Subscription } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'app';
 
+  messages: Message[] = [];
+
   messageForm = this.fb.group({
     message: ['Hello world!', Validators.required]
   });
@@ -21,6 +25,7 @@ export class AppComponent implements OnInit {
   });
   display: boolean;
   loginSubscription: Subscription;
+  notificationSubscription: Subscription;
   
   constructor(private fb: FormBuilder, private notification: MessageService, private auth: AuthService) { }
 
@@ -44,6 +49,9 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit() {
+    this.notificationSubscription = this.notification.message.subscribe(msg => {
+      this.messages.push(msg);
+    });
     this.display = true;
   }
 }
